@@ -9,4 +9,8 @@ export default {
     getCompanies () {
         return api.get(`/stock/market/collection/tag?collectionName=${collection}&token=${token}`);
     },
+    getStockTicker (symbol) {
+        symbol = symbol.toLowerCase();
+        return api.get(`/stock/`+symbol+`/stats?token=${token}`);
+    }
 }

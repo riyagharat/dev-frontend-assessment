@@ -9,16 +9,25 @@
       <div class="page-content-con">
           <loading v-if="loading"></loading>
           <div v-else>
-              <div
-                  v-for="company in companies"
-                  :key="company.symbol"
-                  class="company"
-              >
-                  <h5 class="heading is-size-5">{{company.symbol}} : <small class="is-size-7">{{company.companyName}}</small></h5>
-                  <div>Open <money :value="company.open"></money></div>
-                  <div>Close <money :value="company.close"></money></div>
-                  <timestamp :value="company.openTime"></timestamp> - <timestamp :value="company.closeTime"></timestamp>
-              </div>
+            Search: <input type="text" v-model="search"/>
+             <button @click="invertSort()">Sort asc/desc</button>
+             <div class="columns is-muiltiline"  style="flex-wrap: wrap;">
+                    <div
+                        v-for="company in filteredAndSortedCompanies"
+                        :key="company.symbol"
+                        class="company"
+                    >
+                    <a v-on:click="stockTicker(company.symbol)">
+                        <div class ="tile is-12 is-vertical is-parent">
+                            <pre><h5 class="heading is-size-5">{{company.symbol}} : <small class="is-size-7">{{company.companyName}}</small></h5>
+                            <div>Open <money :value="company.open"></money></div>
+                            <div>Close <money :value="company.close"></money></div>
+                            <timestamp :value="company.openTime"></timestamp> - <timestamp :value="company.closeTime"></timestamp>
+                            </pre>
+                        </div>
+                    </a>
+                </div>
+             </div>
           </div>
       </div>
 
@@ -31,17 +40,42 @@ export default {
     name : "Symbols",
     data () {
         return {
+            search : '',
             loading : true,
             companies : [],
+            companyData : [],
+            sortAsc : true
         };
     },
     beforeMount () {
         API.getCompanies().then(response => {
             this.companies = response.data;
+            console.log(this.companies);
         }).finally(() => {
             this.loading = false;
         });
     },
+    computed : {
+        filteredAndSortedCompanies : function ()
+        {
+            var self=this;
+            let result = this.companies.filter(function(com){return (com.companyName.toLowerCase().indexOf(self.search.toLowerCase())>=0) || com.symbol.toLowerCase().indexOf(self.search.toLowerCase())>=0});
+
+            let ascDesc = this.sortAsc ? 1 : -1;
+            return result.sort((a, b) => ascDesc * a.companyName.localeCompare(b.companyName));
+        }
+    },
+    methods : {
+        invertSort() {
+            this.sortAsc = !this.sortAsc;
+        },
+        stockTicker(symbol) {
+            API.getStockTicker(symbol).then(response => {
+                this.companyData = response.data;
+                console.log(this.companyData);
+            })
+        }
+    }
 }
 </script>
 

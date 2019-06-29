@@ -1,6 +1,6 @@
 import Routes from './Constants';
-import HomeView from '../views/Home'
-import SymbolsView from '../views/Symbols'
+import HomeView from '../views/Home';
+import SymbolsView from '../views/Symbols';
 export default [
     {
         path : '/',
@@ -17,5 +17,5 @@ export default [
         meta : {
             title : 'Symbols'
         },
-    },
+    }
 ];
