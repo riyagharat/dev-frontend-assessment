@@ -17,15 +17,17 @@
                         :key="company.symbol"
                         class="company"
                     >
-                    <a v-on:click="stockTicker(company.symbol)">
-                        <div class ="tile is-12 is-vertical is-parent">
-                            <pre><h5 class="heading is-size-5">{{company.symbol}} : <small class="is-size-7">{{company.companyName}}</small></h5>
-                            <div>Open <money :value="company.open"></money></div>
-                            <div>Close <money :value="company.close"></money></div>
-                            <timestamp :value="company.openTime"></timestamp> - <timestamp :value="company.closeTime"></timestamp>
-                            </pre>
-                        </div>
-                    </a>
+                    <router-link :to="{ name: 'ticker', params: {symbol: company.symbol}}">
+                        <a v-on:click="stockTicker(company.symbol)">
+                            <div class ="tile is-12 is-vertical is-parent">
+                                <pre><h5 class="heading is-size-5">{{company.symbol}} : <small class="is-size-7">{{company.companyName}}</small></h5>
+                                <div>Open <money :value="company.open"></money></div>
+                                <div>Close <money :value="company.close"></money></div>
+                                <timestamp :value="company.openTime"></timestamp> - <timestamp :value="company.closeTime"></timestamp>
+                                </pre>
+                            </div>
+                        </a>
+                    </router-link>
                 </div>
              </div>
           </div>
