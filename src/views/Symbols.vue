@@ -68,15 +68,6 @@ export default {
             this.sortAsc = !this.sortAsc;
         },
     },
-    filters : {
-        between : function(items, min, max) {
-            var count = 0;
-
-            items.forEach(function(item){
-                
-            })
-        }
-    },
 }
 </script>
 
