@@ -40,10 +40,8 @@ export default {
     },
     created() {
         this.symbol = this.$route.params.symbol;
-        console.log(this.symbol);
         API.getStockTicker(this.symbol).then(response => {
             this.companyData = response.data;
-            console.log(this.companyData);
         }).finally(() => {
             this.loading = false;
         });

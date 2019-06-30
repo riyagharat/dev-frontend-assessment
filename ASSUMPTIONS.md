@@ -5,7 +5,4 @@
 - Vue and Bulma are fairly similar to Angular and Bootstrap for me
 - That being said, I had to overcome working with a new framework
 - Assumed I was allowed to use Google and other resources to understand the framework
-
-    - **Filtering** : Between a range of (at least) the following fields : 
-        - "open"
-        - "close" 
+- I was not able to figure out a proper solution to the range option in time and thus completed an extra option instead.

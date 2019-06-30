@@ -49,7 +49,6 @@ export default {
     beforeMount () {
         API.getCompanies().then(response => {
             this.companies = response.data;
-            console.log(this.companies);
         }).finally(() => {
             this.loading = false;
         });
@@ -68,7 +67,16 @@ export default {
         invertSort() {
             this.sortAsc = !this.sortAsc;
         },
-    }
+    },
+    filters : {
+        between : function(items, min, max) {
+            var count = 0;
+
+            items.forEach(function(item){
+                
+            })
+        }
+    },
 }
 </script>
 
